@@ -10,6 +10,7 @@ const App = () => {
     const [selectedQuestions, setSelectedQuestions] = useState(10);
     const [selectedDifficulty, setSelectedDifficulty] = useState('any');
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isVisible, setIsVisible] = useState(true);
 
     function onSelectCategory(category) {
         setSelectedCategory(category)
@@ -52,21 +53,21 @@ const App = () => {
         generateQuizQuestions();
     }, [isDisabled, selectedCategory, selectedDifficulty, selectedQuestions]);
 
-    console.log('Cat: ' + selectedCategory + " ques: " + selectedQuestions + " diff: " + selectedDifficulty);
-    console.log('disabled ' + isDisabled)
-
+    function hideForm(isVisible) {
+        setIsVisible(isVisible);
+    }
 
     return <Fragment>
         <TitleBar>
             <Title/>
         </TitleBar>
-        <Selection buttonState={isDisabled}>
+        {isVisible &&  <Selection buttonState={isDisabled} onHideForm={hideForm}>
             <FormGenerate
                 onSelectCategory={onSelectCategory}
                 onSelectQuestion={onSelectQuestion}
                 onSelectDifficulty={onSelectDifficulty}
             />
-        </Selection>
+        </Selection>}
     </Fragment>
 }
 
