@@ -6,9 +6,9 @@ import FormGenerate from "./partials/FormGenerate";
 
 const App = () => {
 
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('any');
     const [selectedQuestions, setSelectedQuestions] = useState(10);
-    const [selectedDifficulty, setSelectedDifficulty] = useState('');
+    const [selectedDifficulty, setSelectedDifficulty] = useState('any');
     const [isDisabled, setIsDisabled] = useState(true);
 
     function onSelectCategory(category) {
@@ -31,6 +31,26 @@ const App = () => {
         }
     }, [selectedDifficulty, selectedCategory]);
 
+    useEffect(() => {
+        const generateQuizQuestions = async () => {
+            try {
+                let url = `https://opentdb.com/api.php?amount=${selectedQuestions}&type=multiple`;
+                if (selectedCategory.trim() !== 'any') {
+                    url += `&category=${selectedCategory}`;
+                }
+                if (selectedDifficulty.trim() !== 'any') {
+                    url += `&difficulty=${selectedDifficulty}`;
+                }
+                const res = await fetch(url);
+                const data = await res.json();
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        generateQuizQuestions();
+    }, [isDisabled, selectedCategory, selectedDifficulty, selectedQuestions]);
 
     console.log('Cat: ' + selectedCategory + " ques: " + selectedQuestions + " diff: " + selectedDifficulty);
     console.log('disabled ' + isDisabled)

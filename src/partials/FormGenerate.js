@@ -23,6 +23,7 @@ const FormGenerate = ({onSelectCategory,onSelectDifficulty,onSelectQuestion}) =>
         <Form.Group as={Col} controlId="formGridState">
             <Form.Label>Categories</Form.Label>
             <Form.Select onChange={handleCategoryChange}>
+                <option key='any' value='any'>Any</option>
                 <CategoryList/>
             </Form.Select>
             <Form.Label  className='my-3'>Questions</Form.Label>
