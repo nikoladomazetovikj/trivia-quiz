@@ -1,6 +1,6 @@
 import {Button, Card, Container, Row} from "react-bootstrap";
 
-const Selection = ({children}) => {
+const Selection = ({children, buttonState}) => {
     return <Container>
         <Row>
             <Card>
@@ -9,7 +9,7 @@ const Selection = ({children}) => {
                     <Card.Text>
                         {children}
                     </Card.Text>
-                    <Button variant="primary">Start</Button>
+                    <Button variant="primary" disabled={buttonState}>Start</Button>
                 </Card.Body>
             </Card>
         </Row>

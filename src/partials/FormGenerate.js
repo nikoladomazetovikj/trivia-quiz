@@ -22,17 +22,15 @@ const FormGenerate = ({onSelectCategory,onSelectDifficulty,onSelectQuestion}) =>
     return  <Form>
         <Form.Group as={Col} controlId="formGridState">
             <Form.Label>Categories</Form.Label>
-            <Form.Select defaultValue="Choose..." onChange={handleCategoryChange}>
-                <option key='anyCategory'>Choose...</option>
+            <Form.Select onChange={handleCategoryChange}>
                 <CategoryList/>
             </Form.Select>
             <Form.Label  className='my-3'>Questions</Form.Label>
-            <Form.Select defaultValue="Choose..." onChange={handleQuestionChange}>
+            <Form.Select onChange={handleQuestionChange}>
                 <QuestionNumberList/>
             </Form.Select>
             <Form.Label  className='my-3'>Difficulty</Form.Label>
-            <Form.Select defaultValue="Choose..." onChange={handleDifficultyChange}>
-                <option key='anyDifficulty'>Choose...</option>
+            <Form.Select  onChange={handleDifficultyChange}>
                 <DifficultyList/>
             </Form.Select>
         </Form.Group>
