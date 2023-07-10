@@ -3,7 +3,7 @@ import CategoryList from "../utilities/CategoryList";
 import QuestionNumberList from "../utilities/QuestionNumberList";
 import DifficultyList from "../utilities/DifficultyList";
 
-const FormCategory = ({props}) => {
+const FormGenerate = ({props}) => {
     return  <Form>
         <Form.Group as={Col} controlId="formGridState">
             <Form.Label>Categories</Form.Label>
@@ -25,4 +25,4 @@ const FormCategory = ({props}) => {
 };
 
 
-export default FormCategory;
+export default FormGenerate;
