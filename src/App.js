@@ -11,6 +11,7 @@ const App = () => {
     const [selectedDifficulty, setSelectedDifficulty] = useState('any');
     const [isDisabled, setIsDisabled] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
+    const [quiz, setQuiz] = useState([]);
 
     function onSelectCategory(category) {
         setSelectedCategory(category)
@@ -44,7 +45,7 @@ const App = () => {
                 }
                 const res = await fetch(url);
                 const data = await res.json();
-                console.log(data);
+                setQuiz(data.results);
             } catch (err) {
                 console.log(err);
             }
