@@ -3,6 +3,7 @@ import {toUpperCase} from "../helpers/toUpperCase";
 import ButtonAnswers from "../components/partials/ButtonAnswers";
 import {useEffect, useReducer} from "react";
 import questionCountReducer from "./questionCountReducer";
+import {decodeHTML} from "../helpers/decodeHTML";
 
 const QuestionCard = ({quiz}) => {
 
@@ -39,7 +40,7 @@ const QuestionCard = ({quiz}) => {
                 <Card.Body className='text-center'>
                     <Row>
                         <Col>
-                            <p>{quiz[0].question}</p>
+                            <p dangerouslySetInnerHTML={{ __html: decodeHTML(currentQuestion.question) }}></p>
                         </Col>
                     </Row>
                     <Row className="mt-3">
@@ -48,8 +49,15 @@ const QuestionCard = ({quiz}) => {
                         </Col>
                     </Row>
                 </Card.Body>
-                <Card.Footer className='text-center'>
-                   Difficulty: {toUpperCase(quiz[0].difficulty)}
+                <Card.Footer>
+                   <Row>
+                       <Col>
+                           Difficulty: {toUpperCase(quiz[0].difficulty)}
+                       </Col>
+                       <Col className='text-end'>
+                           0/0
+                       </Col>
+                   </Row>
                 </Card.Footer>
             </Card>
         </Container>
