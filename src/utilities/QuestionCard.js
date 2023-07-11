@@ -1,6 +1,6 @@
 import {Card, Col, Container, Row} from "react-bootstrap";
 import {toUpperCase} from "../helpers/toUpperCase";
-import ButtonAnswers from "../partials/ButtonAnswers";
+import ButtonAnswers from "../components/partials/ButtonAnswers";
 
 const QuestionCard = ({quiz}) => {
 

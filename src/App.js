@@ -1,8 +1,8 @@
 import Title from "./components/Title";
-import TitleBar from "./partials/TitleBar";
+import TitleBar from "./components/partials/TitleBar";
 import Selection from "./components/Selection";
 import {Fragment, useEffect, useState} from "react";
-import FormGenerate from "./partials/FormGenerate";
+import FormGenerate from "./components/partials/FormGenerate";
 import QuestionCard from "./utilities/QuestionCard";
 
 const App = () => {

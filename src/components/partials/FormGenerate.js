@@ -1,7 +1,7 @@
 import {Col, Form} from "react-bootstrap";
-import CategoryList from "../utilities/CategoryList";
-import QuestionNumberList from "../utilities/QuestionNumberList";
-import DifficultyList from "../utilities/DifficultyList";
+import CategoryList from "../../utilities/CategoryList";
+import QuestionNumberList from "../../utilities/QuestionNumberList";
+import DifficultyList from "../../utilities/DifficultyList";
 
 const FormGenerate = ({onSelectCategory,onSelectDifficulty,onSelectQuestion}) => {
     const handleCategoryChange = (event) => {
