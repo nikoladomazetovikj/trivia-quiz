@@ -31,11 +31,13 @@ const QuestionCard = ({quiz}) => {
         dispatch({ type: 'NEXT_QUESTION' });
     };
 
+    const totalQuestions = quiz.length;
+
     return (
         <Container>
             <Card>
                 <Card.Header as="h5" className="text-center">
-                    Category: {quiz[0].category}
+                    Category: {currentQuestion.category}
                 </Card.Header>
                 <Card.Body className='text-center'>
                     <Row>
@@ -52,10 +54,10 @@ const QuestionCard = ({quiz}) => {
                 <Card.Footer>
                    <Row>
                        <Col>
-                           Difficulty: {toUpperCase(quiz[0].difficulty)}
+                           Difficulty: {toUpperCase(currentQuestion.difficulty)}
                        </Col>
                        <Col className='text-end'>
-                           0/0
+                           {state.currentQuestionIndex + 1} / {totalQuestions}
                        </Col>
                    </Row>
                 </Card.Footer>
