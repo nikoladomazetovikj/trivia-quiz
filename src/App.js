@@ -3,6 +3,7 @@ import TitleBar from "./partials/TitleBar";
 import Selection from "./components/Selection";
 import {Fragment, useEffect, useState} from "react";
 import FormGenerate from "./partials/FormGenerate";
+import QuestionCard from "./utilities/QuestionCard";
 
 const App = () => {
 
@@ -69,6 +70,7 @@ const App = () => {
                 onSelectDifficulty={onSelectDifficulty}
             />
         </Selection>}
+        {!isVisible && <QuestionCard quiz={quiz}/>}
     </Fragment>
 }
 
