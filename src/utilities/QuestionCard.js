@@ -6,7 +6,6 @@ import questionCountReducer from "./questionCountReducer";
 import {decodeHTML} from "../helpers/decodeHTML";
 
 const QuestionCard = ({quiz}) => {
-
     const initialState = {
         currentQuestionIndex: 0
     };

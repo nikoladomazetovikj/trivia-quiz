@@ -4,6 +4,7 @@ import Selection from "./components/Selection";
 import {Fragment, useEffect, useState} from "react";
 import FormGenerate from "./components/partials/FormGenerate";
 import QuestionCard from "./utilities/QuestionCard";
+import Loader from "./components/Loader";
 
 const App = () => {
 
@@ -70,7 +71,13 @@ const App = () => {
                 onSelectDifficulty={onSelectDifficulty}
             />
         </Selection>}
-        {!isVisible && <QuestionCard quiz={quiz}/>}
+        { !isVisible && (
+            quiz.length > 0 ? (
+                <QuestionCard quiz={quiz} />
+            ) : (
+                <Loader />
+            )
+        )}
     </Fragment>
 }
 
