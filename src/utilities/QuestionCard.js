@@ -1,13 +1,34 @@
 import {Card, Col, Container, Row} from "react-bootstrap";
 import {toUpperCase} from "../helpers/toUpperCase";
 import ButtonAnswers from "../components/partials/ButtonAnswers";
+import {useEffect, useReducer} from "react";
+import questionCountReducer from "./questionCountReducer";
 
 const QuestionCard = ({quiz}) => {
 
-    let arr = [quiz[0].correct_answer].concat(quiz[0].incorrect_answers);
-    arr.sort(function() {
+    const initialState = {
+        currentQuestionIndex: 0
+    };
+
+    const [state, dispatch] = useReducer(questionCountReducer, initialState);
+    const currentQuestion = quiz[state.currentQuestionIndex];
+
+    let arr = [currentQuestion.correct_answer].concat(currentQuestion.incorrect_answers);
+    arr.sort(function () {
         return Math.random() - 0.5;
     });
+
+    useEffect(() => {
+        if (state.currentQuestionIndex >= quiz.length) {
+            // TODO: handle end
+            console.log('End of quiz');
+        }
+    }, [state.currentQuestionIndex, quiz]);
+
+    const handleNextQuestion = () => {
+        console.log('in')
+        dispatch({ type: 'NEXT_QUESTION' });
+    };
 
     return (
         <Container>
@@ -23,7 +44,7 @@ const QuestionCard = ({quiz}) => {
                     </Row>
                     <Row className="mt-3">
                         <Col>
-                            <ButtonAnswers answers={arr} />
+                            <ButtonAnswers answers={arr} onClick={handleNextQuestion} />
                         </Col>
                     </Row>
                 </Card.Body>
