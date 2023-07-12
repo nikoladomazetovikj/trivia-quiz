@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { decodeHTML } from "../../helpers/decodeHTML";
 
 const ButtonAnswers = ({ answers, onClick, correct }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -32,9 +33,10 @@ const ButtonAnswers = ({ answers, onClick, correct }) => {
                     variant={buttonVariant}
                     onClick={() => handleButtonClick(answer)}
                     disabled={buttonDisabled}
-                >
-                    {answer}
-                </Button>
+                    dangerouslySetInnerHTML={{
+                        __html: decodeHTML(answer),
+                    }}
+                ></Button>
             );
         })
     );
