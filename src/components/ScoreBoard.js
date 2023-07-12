@@ -3,12 +3,31 @@ import {Alert, Button, Col, Row} from "react-bootstrap";
 const ScoreBoard = ({score, totalQuestions}) => {
 
     let color;
-    if (score < 3) {
-        color = 'danger';
-    } else if (score >= 3 && score < 7) {
-        color = 'warning';
-    } else if (score >= 7) {
-        color = 'success';
+
+    if (totalQuestions === 10) {
+        if (score < 3) {
+            color = 'danger';
+        } else if (score < 7) {
+            color = 'warning';
+        } else {
+            color = 'success';
+        }
+    } else if (totalQuestions === 15) {
+        if (score < 5) {
+            color = 'danger';
+        } else if (score < 10) {
+            color = 'warning';
+        } else {
+            color = 'success';
+        }
+    } else if (totalQuestions === 20) {
+        if (score < 7) {
+            color = 'danger';
+        } else if (score < 15) {
+            color = 'warning';
+        } else {
+            color = 'success';
+        }
     }
 
     const handleReload = () => {
