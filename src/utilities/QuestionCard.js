@@ -22,7 +22,7 @@ const QuestionCard = ({quiz}) => {
     });
 
     useEffect(() => {
-        if (state.currentQuestionIndex >= quiz.length) {
+        if (state.currentQuestionIndex > quiz.length - 1) {
             setQuizEnded(true);
         }
     }, [state.currentQuestionIndex, quiz]);
@@ -32,7 +32,11 @@ const QuestionCard = ({quiz}) => {
         if (answer === currentQuestion.correct_answer) {
             setScore(score + 1 );
         }
-        dispatch({ type: 'NEXT_QUESTION' });
+        if (state.currentQuestionIndex < quiz.length - 1) {
+            dispatch({ type: 'NEXT_QUESTION' });
+        } else {
+            setQuizEnded(true);
+        }
     };
 
     const totalQuestions = quiz.length;
