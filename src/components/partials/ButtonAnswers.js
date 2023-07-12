@@ -21,6 +21,8 @@ const ButtonAnswers = ({ answers, onClick, correct }) => {
             let buttonVariant = "outline-light";
             if (answer === selectedAnswer) {
                 buttonVariant = answer === correct ? "success" : "danger";
+            } else if (buttonDisabled && selectedAnswer !== correct && answer === correct) {
+                buttonVariant = "success";
             }
 
             return (
