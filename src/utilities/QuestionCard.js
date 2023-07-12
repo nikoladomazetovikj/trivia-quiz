@@ -29,14 +29,16 @@ const QuestionCard = ({quiz}) => {
 
     const handleNextQuestion = (answer) => {
 
-        if (answer === currentQuestion.correct_answer) {
-            setScore(score + 1 );
-        }
-        if (state.currentQuestionIndex < quiz.length - 1) {
-            dispatch({ type: 'NEXT_QUESTION' });
-        } else {
-            setQuizEnded(true);
-        }
+        setTimeout(() => {
+            if (answer === currentQuestion.correct_answer) {
+                setScore(score + 1 );
+            }
+            if (state.currentQuestionIndex < quiz.length - 1) {
+                dispatch({ type: "NEXT_QUESTION" });
+            } else {
+                setQuizEnded(true);
+            }
+        }, 1000);
     };
 
     const totalQuestions = quiz.length;
@@ -62,7 +64,7 @@ const QuestionCard = ({quiz}) => {
                         </Row>
                         <Row className="mt-3">
                             <Col>
-                                <ButtonAnswers answers={arr} onClick={handleNextQuestion} />
+                                <ButtonAnswers answers={arr} onClick={handleNextQuestion} correct={currentQuestion.correct_answer} />
                             </Col>
                         </Row>
                     </Card.Body>
