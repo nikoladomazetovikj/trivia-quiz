@@ -4,6 +4,7 @@ import ButtonAnswers from "../components/partials/ButtonAnswers";
 import {useEffect, useReducer, useState} from "react";
 import questionCountReducer from "./questionCountReducer";
 import {decodeHTML} from "../helpers/decodeHTML";
+import ScoreBoard from "../components/ScoreBoard";
 
 const QuestionCard = ({quiz}) => {
     const initialState = {
@@ -13,6 +14,7 @@ const QuestionCard = ({quiz}) => {
     const [state, dispatch] = useReducer(questionCountReducer, initialState);
     const currentQuestion = quiz[state.currentQuestionIndex];
     const [score, setScore] = useState(0);
+    const [quizEnded, setQuizEnded] = useState(false);
 
     let arr = [currentQuestion.correct_answer].concat(currentQuestion.incorrect_answers);
     arr.sort(function () {
@@ -20,9 +22,8 @@ const QuestionCard = ({quiz}) => {
     });
 
     useEffect(() => {
-        if (state.currentQuestionIndex > quiz.length) {
-            // TODO: handle end
-            console.log('End of quiz');
+        if (state.currentQuestionIndex >= quiz.length) {
+            setQuizEnded(true);
         }
     }, [state.currentQuestionIndex, quiz]);
 
@@ -38,33 +39,41 @@ const QuestionCard = ({quiz}) => {
 
     return (
         <Container>
-            <Card>
-                <Card.Header as="h5" className="text-center">
-                    Category: {currentQuestion.category}
-                </Card.Header>
-                <Card.Body className='text-center'>
-                    <Row>
-                        <Col>
-                            <p dangerouslySetInnerHTML={{ __html: decodeHTML(currentQuestion.question) }}></p>
-                        </Col>
-                    </Row>
-                    <Row className="mt-3">
-                        <Col>
-                            <ButtonAnswers answers={arr} onClick={handleNextQuestion} />
-                        </Col>
-                    </Row>
-                </Card.Body>
-                <Card.Footer>
-                   <Row>
-                       <Col>
-                           Difficulty: {toUpperCase(currentQuestion.difficulty)}
-                       </Col>
-                       <Col className='text-end'>
-                           {state.currentQuestionIndex + 1} / {totalQuestions}
-                       </Col>
-                   </Row>
-                </Card.Footer>
-            </Card>
+            {quizEnded ? (
+                <ScoreBoard score={score} totalQuestions={totalQuestions} />
+            ) : (
+                <Card>
+                    <Card.Header as="h5" className="text-center">
+                        Category: {currentQuestion.category}
+                    </Card.Header>
+                    <Card.Body className="text-center">
+                        <Row>
+                            <Col>
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: decodeHTML(currentQuestion.question),
+                                    }}
+                                ></p>
+                            </Col>
+                        </Row>
+                        <Row className="mt-3">
+                            <Col>
+                                <ButtonAnswers answers={arr} onClick={handleNextQuestion} />
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Row>
+                            <Col>
+                                Difficulty: {toUpperCase(currentQuestion.difficulty)}
+                            </Col>
+                            <Col className="text-end">
+                                {state.currentQuestionIndex + 1} / {totalQuestions}
+                            </Col>
+                        </Row>
+                    </Card.Footer>
+                </Card>
+            )}
         </Container>
     );
 }
