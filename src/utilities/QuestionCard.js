@@ -5,6 +5,7 @@ import {useEffect, useReducer, useState} from "react";
 import questionCountReducer from "./questionCountReducer";
 import {decodeHTML} from "../helpers/decodeHTML";
 import ScoreBoard from "../components/ScoreBoard";
+import Timer from "../components/Timer";
 
 const QuestionCard = ({quiz}) => {
     const initialState = {
@@ -15,6 +16,7 @@ const QuestionCard = ({quiz}) => {
     const currentQuestion = quiz[state.currentQuestionIndex];
     const [score, setScore] = useState(0);
     const [quizEnded, setQuizEnded] = useState(false);
+    const [timerExpired, setTimerExpired] = useState(false);
 
     let arr = [currentQuestion.correct_answer].concat(currentQuestion.incorrect_answers);
     arr.sort(function () {
@@ -43,8 +45,15 @@ const QuestionCard = ({quiz}) => {
 
     const totalQuestions = quiz.length;
 
+    const handleTimerExpired = () => {
+        setQuizEnded(true);
+        setTimerExpired(true);
+    };
+
+
     return (
         <Container>
+            {!quizEnded && <Timer onTimerExpired={handleTimerExpired} />}
             {quizEnded ? (
                 <ScoreBoard score={score} totalQuestions={totalQuestions} />
             ) : (
