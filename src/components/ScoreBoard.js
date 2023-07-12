@@ -11,6 +11,10 @@ const ScoreBoard = ({score, totalQuestions}) => {
         color = 'success';
     }
 
+    const handleReload = () => {
+        window.location.reload();
+    };
+
     return (
         <>
             <Row>
@@ -22,7 +26,7 @@ const ScoreBoard = ({score, totalQuestions}) => {
                         </p>
                         <hr />
                         <div className="d-flex justify-content-end">
-                            <Button variant={"outline-" + color}>
+                            <Button variant={"outline-" + color} onClick={handleReload}>
                                 Start Again
                             </Button>
                         </div>
