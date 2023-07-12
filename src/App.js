@@ -5,6 +5,7 @@ import {Fragment, useEffect, useState} from "react";
 import FormGenerate from "./components/partials/FormGenerate";
 import QuestionCard from "./utilities/QuestionCard";
 import Loader from "./components/Loader";
+import ErrorAlert from "./components/ErrorAlert";
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
     const [quiz, setQuiz] = useState([]);
+    const [status, setStatus] = useState(0);
 
     function onSelectCategory(category) {
         setSelectedCategory(category)
@@ -47,6 +49,7 @@ const App = () => {
                 }
                 const res = await fetch(url);
                 const data = await res.json();
+                setStatus(data.response_code);
                 setQuiz(data.results);
             } catch (err) {
                 console.log(err);
@@ -60,25 +63,33 @@ const App = () => {
         setIsVisible(isVisible);
     }
 
-    return <Fragment>
-        <TitleBar>
-            <Title/>
-        </TitleBar>
-        {isVisible &&  <Selection buttonState={isDisabled} onHideForm={hideForm}>
-            <FormGenerate
-                onSelectCategory={onSelectCategory}
-                onSelectQuestion={onSelectQuestion}
-                onSelectDifficulty={onSelectDifficulty}
-            />
-        </Selection>}
-        { !isVisible && (
-            quiz.length > 0 ? (
-                <QuestionCard quiz={quiz} />
+    return (
+        <Fragment>
+            <TitleBar>
+                <Title />
+            </TitleBar>
+            {isVisible && (
+                <Selection buttonState={isDisabled} onHideForm={hideForm}>
+                    <FormGenerate
+                        onSelectCategory={onSelectCategory}
+                        onSelectQuestion={onSelectQuestion}
+                        onSelectDifficulty={onSelectDifficulty}
+                    />
+                </Selection>
+            )}
+            {(status === 2 || status === 1) ? (
+                <ErrorAlert />
             ) : (
-                <Loader />
-            )
-        )}
-    </Fragment>
+                !isVisible && (
+                    quiz.length > 0 ? (
+                        <QuestionCard quiz={quiz} />
+                    ) : (
+                        <Loader />
+                    )
+                )
+            )}
+        </Fragment>
+    );
 }
 
 export default App
