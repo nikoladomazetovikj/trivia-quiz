@@ -49,7 +49,6 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
 
     const totalQuestions = quiz.length;
 
-    // TODO: do not hardcode
     const quizResults = {
         category: toUpperCase(selectedCategory),
         difficulty: toUpperCase(selectedDifficulty),

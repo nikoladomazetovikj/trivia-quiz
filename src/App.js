@@ -6,6 +6,7 @@ import FormGenerate from "./components/partials/FormGenerate";
 import QuestionCard from "./utilities/QuestionCard";
 import Loader from "./components/Loader";
 import ErrorAlert from "./components/ErrorAlert";
+import Results from "./components/Results";
 
 const App = () => {
 
@@ -72,13 +73,16 @@ const App = () => {
                 <Title />
             </TitleBar>
             {isVisible && (
-                <Selection buttonState={isDisabled} onHideForm={hideForm}>
-                    <FormGenerate
-                        onSelectCategory={onSelectCategory}
-                        onSelectQuestion={onSelectQuestion}
-                        onSelectDifficulty={onSelectDifficulty}
-                    />
-                </Selection>
+              <>
+                  <Selection buttonState={isDisabled} onHideForm={hideForm}>
+                      <FormGenerate
+                          onSelectCategory={onSelectCategory}
+                          onSelectQuestion={onSelectQuestion}
+                          onSelectDifficulty={onSelectDifficulty}
+                      />
+                  </Selection>
+                  <Results/>
+              </>
             )}
             {(status === 2 || status === 1) ? (
                 <ErrorAlert />
