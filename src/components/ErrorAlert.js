@@ -1,4 +1,4 @@
-import {Alert, Button, Col, Container, Row} from "react-bootstrap";
+import {Alert, Col, Container, Row} from "react-bootstrap";
 
 const ErrorAlert = () => {
     return (

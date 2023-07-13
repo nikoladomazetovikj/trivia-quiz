@@ -1,4 +1,4 @@
-import { Card, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Card, Container, ListGroup} from "react-bootstrap";
 import { formatDate } from "../helpers/formatDate";
 
 const Results = () => {
@@ -17,6 +17,8 @@ const Results = () => {
                         sortedData.map((result, index) => (
                             <ListGroup.Item key={index}>
                                 <strong>Category:</strong> {result.category}
+                                <br />
+                                <strong>Difficulty:</strong> {result.difficulty}
                                 <br />
                                 <strong>Score:</strong> {result.score} / {result.questionNumber}
                                 <br />
