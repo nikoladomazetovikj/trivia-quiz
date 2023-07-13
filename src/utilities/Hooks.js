@@ -1,13 +1,13 @@
-import {useState} from "react";
+import {useEffect } from "react";
 
-export default function useStoreToLocalStorage(key) {
-    const [quizDetail, setQuizDetails] = useState(() => {
-        const data = localStorage.key(key);
-        if (data) {
-            return JSON.parse(data);
-        } else {
-            return [];
+export const useQuizResults = (quizResults, quizEnded) => {
+    useEffect(() => {
+        if (quizEnded) {
+            const storedResults = localStorage.getItem("quizResults");
+            const previousResults = storedResults ? JSON.parse(storedResults) : [];
+            const updatedResults = [...previousResults, quizResults];
+            localStorage.setItem("quizResults", JSON.stringify(updatedResults));
         }
-    });
+    }, [quizEnded, quizResults]);
+};
 
-}

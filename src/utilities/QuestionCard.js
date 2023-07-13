@@ -1,15 +1,18 @@
-import {Card, Col, Container, Row} from "react-bootstrap";
-import {toUpperCase} from "../helpers/toUpperCase";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import { toUpperCase } from "../helpers/toUpperCase";
 import ButtonAnswers from "../components/partials/ButtonAnswers";
-import {useEffect, useReducer, useState} from "react";
+import { useEffect, useReducer, useState } from "react";
 import questionCountReducer from "./questionCountReducer";
-import {decodeHTML} from "../helpers/decodeHTML";
+import { decodeHTML } from "../helpers/decodeHTML";
 import ScoreBoard from "../components/ScoreBoard";
 import Timer from "../components/Timer";
+import {useQuizResults} from "./Hooks";
 
-const QuestionCard = ({quiz}) => {
+
+const QuestionCard = ({ quiz }) => {
+    console.log(quiz);
     const initialState = {
-        currentQuestionIndex: 0
+        currentQuestionIndex: 0,
     };
 
     const [state, dispatch] = useReducer(questionCountReducer, initialState);
@@ -18,7 +21,9 @@ const QuestionCard = ({quiz}) => {
     const [quizEnded, setQuizEnded] = useState(false);
     const [timerExpired, setTimerExpired] = useState(false);
 
-    let arr = [currentQuestion.correct_answer].concat(currentQuestion.incorrect_answers);
+    let arr = [currentQuestion.correct_answer].concat(
+        currentQuestion.incorrect_answers
+    );
     arr.sort(function () {
         return Math.random() - 0.5;
     });
@@ -30,10 +35,9 @@ const QuestionCard = ({quiz}) => {
     }, [state.currentQuestionIndex, quiz]);
 
     const handleNextQuestion = (answer) => {
-
         setTimeout(() => {
             if (answer === currentQuestion.correct_answer) {
-                setScore(score + 1 );
+                setScore(score + 1);
             }
             if (state.currentQuestionIndex < quiz.length - 1) {
                 dispatch({ type: "NEXT_QUESTION" });
@@ -45,11 +49,21 @@ const QuestionCard = ({quiz}) => {
 
     const totalQuestions = quiz.length;
 
+    // TODO: do not hardcode
+    const quizResults = {
+        category: "Science",
+        difficulty: "Easy",
+        score: score,
+        questionNumber: 10,
+        date: new Date(),
+    };
+
+    useQuizResults(quizResults, quizEnded);
+
     const handleTimerExpired = () => {
         setQuizEnded(true);
         setTimerExpired(true);
     };
-
 
     return (
         <Container>
@@ -73,7 +87,11 @@ const QuestionCard = ({quiz}) => {
                         </Row>
                         <Row className="mt-3">
                             <Col>
-                                <ButtonAnswers answers={arr} onClick={handleNextQuestion} correct={currentQuestion.correct_answer} />
+                                <ButtonAnswers
+                                    answers={arr}
+                                    onClick={handleNextQuestion}
+                                    correct={currentQuestion.correct_answer}
+                                />
                             </Col>
                         </Row>
                     </Card.Body>
@@ -91,7 +109,6 @@ const QuestionCard = ({quiz}) => {
             )}
         </Container>
     );
-}
-
+};
 
 export default QuestionCard;
