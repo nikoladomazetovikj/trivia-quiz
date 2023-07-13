@@ -10,7 +10,6 @@ import {useQuizResults} from "./Hooks";
 
 
 const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
-    console.log(quiz);
     const initialState = {
         currentQuestionIndex: 0,
     };

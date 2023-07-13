@@ -66,7 +66,6 @@ const App = () => {
         setIsVisible(isVisible);
     }
 
-    console.log(categoryName)
     return (
         <Fragment>
             <TitleBar>
