@@ -1,4 +1,5 @@
 import {Card, Col, Container, ListGroup, Row} from "react-bootstrap";
+import {formatDate} from "../helpers/formatDate";
 
 const Results = () => {
 
@@ -19,7 +20,7 @@ const Results = () => {
                                     <br />
                                     <strong>Score:</strong> {result.score} / {result.questionNumber}
                                     <br />
-                                    <strong>Date:</strong> {result.date}
+                                    <strong>Date:</strong> {formatDate(result.date)}
                                 </ListGroup.Item>
                             ))
                         ) : (
