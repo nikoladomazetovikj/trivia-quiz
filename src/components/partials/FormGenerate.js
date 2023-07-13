@@ -6,7 +6,8 @@ import DifficultyList from "../../utilities/DifficultyList";
 const FormGenerate = ({onSelectCategory,onSelectDifficulty,onSelectQuestion}) => {
     const handleCategoryChange = (event) => {
         const selectedCategory = event.target.value;
-        onSelectCategory(selectedCategory);
+        const categoryName = event.target.options[event.target.selectedIndex].text;
+        onSelectCategory(selectedCategory, categoryName);
     };
 
     const handleQuestionChange = (event) => {

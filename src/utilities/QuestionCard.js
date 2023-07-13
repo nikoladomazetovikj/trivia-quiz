@@ -9,7 +9,7 @@ import Timer from "../components/Timer";
 import {useQuizResults} from "./Hooks";
 
 
-const QuestionCard = ({ quiz }) => {
+const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
     console.log(quiz);
     const initialState = {
         currentQuestionIndex: 0,
@@ -51,10 +51,10 @@ const QuestionCard = ({ quiz }) => {
 
     // TODO: do not hardcode
     const quizResults = {
-        category: "Science",
-        difficulty: "Easy",
+        category: toUpperCase(selectedCategory),
+        difficulty: toUpperCase(selectedDifficulty),
         score: score,
-        questionNumber: 10,
+        questionNumber: quiz.length,
         date: new Date(),
     };
 

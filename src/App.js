@@ -16,9 +16,11 @@ const App = () => {
     const [isVisible, setIsVisible] = useState(true);
     const [quiz, setQuiz] = useState([]);
     const [status, setStatus] = useState(0);
+    const [categoryName,setCategoryName] = useState('any');
 
-    function onSelectCategory(category) {
+    function onSelectCategory(category, categoryName) {
         setSelectedCategory(category)
+        setCategoryName(categoryName || 'any');
     }
 
     function onSelectQuestion(question) {
@@ -63,6 +65,7 @@ const App = () => {
         setIsVisible(isVisible);
     }
 
+    console.log(categoryName)
     return (
         <Fragment>
             <TitleBar>
@@ -82,7 +85,7 @@ const App = () => {
             ) : (
                 !isVisible && (
                     quiz.length > 0 ? (
-                        <QuestionCard quiz={quiz} />
+                        <QuestionCard quiz={quiz} selectedDifficulty={selectedDifficulty} selectedCategory={categoryName} />
                     ) : (
                         <Loader />
                     )
